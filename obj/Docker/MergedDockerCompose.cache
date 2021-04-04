@@ -1,0 +1,16 @@
+services:
+  myfirstmicroservice:
+    build:
+      context: E:\microservices\MyFirstMicroService
+      dockerfile: MyFirstMicroService\Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: myfirstmicroservice
+    ports:
+    - target: 80
+    - target: 443
+    volumes:
+    - C:\Users\Ahsan\AppData\Roaming\ASP.NET\Https:C:\Users\ContainerUser\AppData\Roaming\ASP.NET\Https:ro
+    - C:\Users\Ahsan\AppData\Roaming\Microsoft\UserSecrets:C:\Users\ContainerUser\AppData\Roaming\Microsoft\UserSecrets:ro
+version: '3.4'

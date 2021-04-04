@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  myfirstmicroservice:
+    image: ${DOCKER_REGISTRY-}myfirstmicroservice
+    build:
+      context: .
+      dockerfile: MyFirstMicroService\Dockerfile
