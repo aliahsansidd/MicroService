@@ -30,8 +30,16 @@ namespace MyFirstMicroService.Controllers
         [ProducesResponseType(400)]
         public async Task<IActionResult> GetAllProducts()
         {
-            var products = await _productRepository.GetProducts();
-            return new OkObjectResult(products);
+            try
+            {
+                var products = await _productRepository.GetProducts();
+                return new OkObjectResult(products);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
         /// <summary>
@@ -45,8 +53,16 @@ namespace MyFirstMicroService.Controllers
         [ProducesResponseType(400)]
         public async Task<IActionResult> GetProductById(int id)
         {
-            var product = await _productRepository.GetProductByID(id);
-            return new OkObjectResult(product);
+            try
+            {
+                var product = await _productRepository.GetProductByID(id);
+                return new OkObjectResult(product);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
         /// <summary>
@@ -60,8 +76,16 @@ namespace MyFirstMicroService.Controllers
         [ProducesResponseType(400)]
         public async Task<Product> Add([FromBody] Product product)
         {
-            await _productRepository.CreateProduct(product);
-            return product;
+
+            try
+            {
+                await _productRepository.CreateProduct(product);
+                return product;
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         /// <summary>
         /// Edit Product 
@@ -74,12 +98,23 @@ namespace MyFirstMicroService.Controllers
         [ProducesResponseType(400)]
         public async Task<IActionResult> Edit([FromBody] Product product)
         {
-            if (product != null)
+
+            try
             {
-                await _productRepository.EditProduct(product);
-                return new OkResult();
+                if (ModelState.IsValid)
+                {
+                    await _productRepository.EditProduct(product);
+                    return new OkResult();
+                }
+                else
+                {
+                    return BadRequest("Can not add Produt.");
+                }
             }
-            return new NoContentResult();
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         /// <summary>
         /// delete Product 
@@ -92,8 +127,16 @@ namespace MyFirstMicroService.Controllers
         [ProducesResponseType(400)]
         public async Task<IActionResult> Delete(int id)
         {
-            await _productRepository.DeleteProduct(id);
-            return new OkResult();
+            
+            try
+            {
+                await _productRepository.DeleteProduct(id);
+                return new OkResult();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
