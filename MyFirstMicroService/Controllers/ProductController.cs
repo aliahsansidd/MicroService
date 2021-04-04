@@ -20,28 +20,58 @@ namespace MyFirstMicroService.Controllers
             _productRepository = productRepository;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetProducts()
+        /// <summary>
+        /// Get all products
+        /// </summary>
+        /// <response code="200">Returns when operation successfull.</response>
+        /// <response code="400">Returns when operation fail.</response>
+        [HttpGet("GetAll")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Product>))]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> GetAllProducts()
         {
             var products = await _productRepository.GetProducts();
             return new OkObjectResult(products);
         }
 
-        [HttpGet("{id}")]
+        /// <summary>
+        /// Get single product by id
+        /// </summary>
+        /// <param name="id">Product Id</param>
+        /// <response code="200">Returns when operation successfull.</response>
+        /// <response code="400">Returns when operation fail.</response>
+        [HttpGet("Get/{id}")]
+        [ProducesResponseType(200, Type = typeof(Product))]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> GetProductById(int id)
         {
-            var product =await _productRepository.GetProductByID(id);
+            var product = await _productRepository.GetProductByID(id);
             return new OkObjectResult(product);
         }
 
+        /// <summary>
+        /// Add Product 
+        /// </summary>
+        /// <param name="product">Product model</param>
+        /// <response code="200">Returns when operation successfull.</response>
+        /// <response code="400">Returns when operation fail.</response>
         [HttpPost]
+        [ProducesResponseType(200, Type = typeof(Product))]
+        [ProducesResponseType(400)]
         public async Task<Product> Add([FromBody] Product product)
         {
             await _productRepository.CreateProduct(product);
             return product;
         }
-
+        /// <summary>
+        /// Edit Product 
+        /// </summary>
+        /// <param name="product">Product model</param>
+        /// <response code="200">Returns when operation successfull.</response>
+        /// <response code="400">Returns when operation fail.</response>
         [HttpPut]
+        [ProducesResponseType(200, Type = typeof(Product))]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> Edit([FromBody] Product product)
         {
             if (product != null)
@@ -51,8 +81,15 @@ namespace MyFirstMicroService.Controllers
             }
             return new NoContentResult();
         }
-
+        /// <summary>
+        /// delete Product 
+        /// </summary>
+        /// <param name="id">Product model</param>
+        /// <response code="200">Returns when operation successfull.</response>
+        /// <response code="400">Returns when operation fail.</response>
         [HttpDelete("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> Delete(int id)
         {
             await _productRepository.DeleteProduct(id);
