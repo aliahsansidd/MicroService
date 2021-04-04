@@ -84,7 +84,7 @@ namespace MyFirstMicroService.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                throw new Exception(ex.Message);
             }
         }
         /// <summary>
