@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using EventBuss.Messages.Event;
+using MassTransit;
+using Microsoft.AspNetCore.Mvc;
+using MyFirstMicroService.DTO;
 using MyFirstMicroService.Models;
 using MyFirstMicroService.Repository.Contracts;
 using System;
@@ -15,9 +19,13 @@ namespace MyFirstMicroService.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductRepository _productRepository;
-        public ProductController(IProductRepository productRepository)
+        private readonly IMapper _mapper;
+        private readonly IPublishEndpoint _publishEndpoint;
+        public ProductController(IProductRepository productRepository,IMapper mapper, IPublishEndpoint publishEndpoint)
         {
             _productRepository = productRepository;
+            _mapper = mapper;
+            _publishEndpoint = publishEndpoint;
         }
 
         /// <summary>
@@ -34,6 +42,28 @@ namespace MyFirstMicroService.Controllers
             {
                 var products = await _productRepository.GetProducts();
                 return new OkObjectResult(products);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+        /// <summary>
+        /// Send Message
+        /// </summary>
+        /// <response code="200">Returns when operation successfull.</response>
+        /// <response code="400">Returns when operation fail.</response>
+        [HttpPost("SendMessage")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Product>))]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> SendMessage([FromBody] MessageViewModel message)
+        {
+            try
+            {
+                var obj = _mapper.Map<MessageEvent>(message);
+                await _publishEndpoint.Publish<MessageEvent>(obj);
+                return new OkResult();
             }
             catch (Exception ex)
             {

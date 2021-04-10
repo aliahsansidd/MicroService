@@ -1,0 +1,12 @@
+E:\microservices\EventBuss.Messages\bin\Debug\net5.0\EventBuss.Messages.deps.json
+E:\microservices\EventBuss.Messages\bin\Debug\net5.0\EventBuss.Messages.dll
+E:\microservices\EventBuss.Messages\bin\Debug\net5.0\ref\EventBuss.Messages.dll
+E:\microservices\EventBuss.Messages\bin\Debug\net5.0\EventBuss.Messages.pdb
+E:\microservices\EventBuss.Messages\obj\Debug\net5.0\EventBuss.Messages.csprojAssemblyReference.cache
+E:\microservices\EventBuss.Messages\obj\Debug\net5.0\EventBuss.Messages.GeneratedMSBuildEditorConfig.editorconfig
+E:\microservices\EventBuss.Messages\obj\Debug\net5.0\EventBuss.Messages.AssemblyInfoInputs.cache
+E:\microservices\EventBuss.Messages\obj\Debug\net5.0\EventBuss.Messages.AssemblyInfo.cs
+E:\microservices\EventBuss.Messages\obj\Debug\net5.0\EventBuss.Messages.csproj.CoreCompileInputs.cache
+E:\microservices\EventBuss.Messages\obj\Debug\net5.0\EventBuss.Messages.dll
+E:\microservices\EventBuss.Messages\obj\Debug\net5.0\ref\EventBuss.Messages.dll
+E:\microservices\EventBuss.Messages\obj\Debug\net5.0\EventBuss.Messages.pdb
